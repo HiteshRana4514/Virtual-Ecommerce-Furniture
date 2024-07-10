@@ -1,0 +1,90 @@
+{
+    "furniture": {
+        "name": "All Furniture",
+        "category": 
+            {
+                "chairs": [
+                    {
+                        "id": 1,
+                        "type": "Black Chair",
+                        "image": "./public/images/chair-black.jpg",
+                        "3d_model": "./public/black-chair/mesh_lowpoly",
+                        "x": -20,
+                        "y": -55,
+                        "z": -150,
+                        "scale-x" : 21,
+                        "scale-y" : 23,
+                        "scale-z" : 21
+                    },
+                    {
+                        "id": 2,
+                        "type": "Office Chair",
+                        "image": "./public/images/Front.png",
+                        "x": 10,
+                        "y": -50,
+                        "z": 20
+                    },
+                    {
+                        "id": 3,
+                        "type": "Battle Axe",
+                        "image": "./public/images/Front.png",
+                        "x": 10,
+                        "y": -10,
+                        "z": -80
+                    }
+                ],
+            
+            
+                "sofas": [
+                    {
+                        "id": 1,
+                        "type": "White sofa",
+                        "image": "./public/images/sofa-white.jpg",
+                        "3d_model": "./public/Sofa_1/sofa",
+                        "x": 20,
+                        "y": -150,
+                        "z": -250,
+                        "scale-x" : 60,
+                        "scale-y" : 70,
+                        "scale-z" : 20
+                    },
+                    {
+                        "id": 2,
+                        "type": "Green Sofa",
+                        "image": "./public/images/sofa-green.jpg",
+                        "x": 30,
+                        "y": -50,
+                        "z": 20
+                    }
+                ],
+                "tables": [
+                    {
+                        "id": 1,
+                        "type": "Office Table",
+                        "image": "./public/images/table.jpg",
+                        "3d_model": "./public/Table/Table",
+                        "x": 10,
+                        "y": -120,
+                        "z": -200,
+                        "scale-x" : 30,
+                        "scale-y" : 35,
+                        "scale-z" : 30
+                    },
+                    {
+                        "id": 2,
+                        "type": "Office Table",
+                        "image": "./public/images/table.jpg",
+                        "x": 10,
+                        "y": -100,
+                        "z": -200,
+                        "scale-x" : 21,
+                        "scale-y" : 23,
+                        "scale-z" : 21
+                    }
+                ]
+            }
+        
+        
+        
+    }
+}

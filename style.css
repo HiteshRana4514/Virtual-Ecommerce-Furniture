@@ -1,0 +1,234 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* .whole-area{
+    padding: 40px 0;
+} */
+.try-out{
+    padding: 30px 0;
+}
+.container{
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    /* padding: 0 20px; */
+    /* max-width: 1480px; */
+}
+.left{
+    width: 30%;
+    background-color: #fff;
+    padding: 20px;
+    height: 800px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.right{
+    width: 70%;
+    height: 800px;
+}
+.upload-img-wrap{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.upload-img-wrap.active{
+    display: none;
+}
+.upload-block{
+    width: 500px;
+    border: 1px solid #000;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+.upload-background{
+    position: relative;
+    border: 1px solid #067F38;
+    border-radius: 10px;
+}
+.upload-label{
+    position: absolute;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+#upload-room {
+    outline: none;
+    position: relative;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  input[type="file"]:hover:before{
+    background-color: #067F38;
+    color: #fff;
+  }
+  input[type="file"]:before {
+    content: "Upload Image";
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+    position: absolute;
+    margin: 0;
+    line-height: 35px;
+    color: #000;
+    display: block;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    transition: all 0.4s;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .extra-img{
+    display: none;
+    width: 200px;
+    height: 200px;
+  }
+.showroom{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.showroom.active{
+    display: block;
+}
+.chair-wrap h2{
+    margin-bottom: 20px;
+}
+.category-block{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    
+}
+.category-list{
+    margin-bottom: 20px;
+}
+.popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid grey;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    /* top: 20px; */
+    /* left: 0; */
+    /* right: 0; */
+    /* margin: 0 auto; */
+    width: 400px;
+    cursor: pointer;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.option {
+    cursor: pointer;
+    padding: 10px 10px;
+}
+.option:hover{
+    background-color: blanchedalmond;
+}
+.back-color{
+    background-color: blanchedalmond;
+}
+.rotation-range{
+    position: absolute;
+    display: none;
+    width: 100%;
+    padding: 10px;
+    top: 100%;
+    left: 0;
+    background-color: brown;
+}
+.rotation-range.active{
+    display: block;
+}
+#rotationInput{
+    display: block;
+    width: 100%;
+}
+.hide-popup{
+    width: 25px;
+    height: 25px;
+    background: url('./public/images/close-icon.png') no-repeat center;
+}
+.sofa-wrap h2{
+    margin-bottom: 20px;
+}
+.category-list{
+    width: 40%;
+}
+.category-image{
+    margin-bottom: 10px;
+    height: 170px;
+    border: 1px solid #067F38;
+}
+.category-image img{
+    display: block;
+    width: 100%;
+    height: 100%;
+
+}
+.category-name{
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.add-btn{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 10px;
+    cursor: pointer;
+    background-color: #067F38;
+    border: 1px solid #067F38;
+    color: #fff;
+    transition: all 0.4s;
+}
+h2{
+    margin-bottom: 20px;
+}
+.add-btn:hover{
+    background-color: #fff;
+    color: #067F38;
+}
+.spare-list{
+    display: none;
+}
+.option.active{
+    background-color: antiquewhite;
+}
+.size-range{
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #067F38;
+    padding: 10px 5px;
+}
+.size-range input{
+    width: 100%;
+}
+.size-range.active{
+    display: block;
+}
