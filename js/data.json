@@ -28,9 +28,13 @@
                         "id": 3,
                         "type": "Battle Axe",
                         "image": "./public/images/Front.png",
-                        "x": 10,
-                        "y": -10,
-                        "z": -80
+                        "3d_model": "./public/14-girl-obj/girl-OBJ",
+                        "x": -20,
+                        "y": -55,
+                        "z": -150,
+                        "scale-x" : 21,
+                        "scale-y" : 23,
+                        "scale-z" : 21
                     }
                 ],
             
@@ -82,9 +86,6 @@
                         "scale-z" : 21
                     }
                 ]
-            }
-        
-        
-        
+            }  
     }
 }

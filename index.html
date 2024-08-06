@@ -36,6 +36,13 @@
             </div>
           </div>
           <canvas class="showroom"></canvas>
+          <div class="textures-wrap">
+            <div class="textures">
+              <img src="./public/textures/texture-1.jpg" alt="">
+            </div>
+            <div class="textures"><img src="./public/textures/texture-2.jpg" alt=""></div>
+            <div class="textures"><img src="./public/textures/texture-3.jpg" alt=""></div>
+          </div>
         </div>
       </div>
     </section>
@@ -43,6 +50,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/loaders/OBJLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/loaders/MTLLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/loaders/TextureLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three-textsprite@latest/build/three.textsprite.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.min.js"></script>
@@ -51,25 +59,25 @@
 
 
     const uploadRoom = document.getElementById("upload-room");
-    uploadRoom.onchange = ()=>{
+    uploadRoom.onchange = () => {
       console.log("start");
-      if(uploadRoom.files && uploadRoom.files[0]){
+      if (uploadRoom.files && uploadRoom.files[0]) {
         console.log(uploadRoom.files[0]);
         const reader = new FileReader();
-        reader.onload = function(e){
+        reader.onload = function (e) {
           console.log("enter-2");
           let img = document.querySelector(".extra-img")
           img.src = e.target.result;
           let baseImg = img.src;
-          img.onload = function() {
+          img.onload = function () {
             check(baseImg)
           }
-          
+
         }
         reader.readAsDataURL(uploadRoom.files[0]);
       }
     }
-    function check(img){
+    function check(img) {
       let uploadImgWrap = document.querySelector(".upload-img-wrap");
       let showroom = document.querySelector(".showroom");
       uploadImgWrap.classList.add("active");
@@ -243,7 +251,9 @@
                 <div class="option resize-btn" onclick="resizeObject()">Resize</div>
                 <div class="rotation-range"><input type="range" min="0" max="360" value="0" id="rotationInput"></div>
                 <div class="size-range"><input type="range" min="0.1" max="5" step="0.1" value="1" id="sizeInput"></div>
+                <div class="option setting-btn" onclick="settingObject()">Setting</div>
                 <div class="hide-popup" onclick="hidePopup()"></div>
+               
             `;
       document.body.appendChild(popup);
     }
@@ -252,6 +262,7 @@
       removeActiveColor();
       const resizeDiv = document.querySelector('.resize-btn');
       addActiveColor(resizeDiv);
+      removeTextureWrap()
 
       document.body.style.cursor = "auto";
       const sizeInput = document.getElementById("sizeInput");
@@ -335,6 +346,7 @@
     }
 
     window.deleteObject = function () {
+      removeTextureWrap()
       if (intersectedObject) {
         scene.remove(intersectedObject);
 
@@ -392,6 +404,7 @@
       removeActiveColor()
       const rotateDiv = document.querySelector('.rotate-btn');
       addActiveColor(rotateDiv)
+      removeTextureWrap()
       document.body.style.cursor = "auto";
       const rotationInput = document.getElementById("rotationInput");
       const rotationRange = document.querySelector(".rotation-range");
@@ -422,6 +435,7 @@
       const dragDiv = document.querySelector('.drag-btn')
       addActiveColor(dragDiv)
       dragble = true;
+      removeTextureWrap()
       if (intersectedObject) {
         document.body.style.cursor = "grab";
         window.addEventListener("mousedown", onClick1, false);
@@ -537,7 +551,56 @@
       removeActiveColor()
       const settingDiv = document.querySelector('.setting-btn')
       addActiveColor(settingDiv);
+      const rotationRange = document.querySelector(".rotation-range");
+      rotationRange.classList.remove("active");
+      const sizeRange = document.querySelector(".size-range");
+      sizeRange.classList.remove("active");
+      isDragging = false;
+      dragble = false;
+      textureWrapActive()
+      updateTextures()
     }
+
+    function textureWrapActive() {
+      const textureWrap = document.querySelector('.textures-wrap');
+      textureWrap.classList.add('active');
+    }
+    function removeTextureWrap() {
+      const textureWrap = document.querySelector('.textures-wrap');
+      textureWrap.classList.remove('active');
+    }
+
+    function updateTextures() {
+      const texturesBlock = document.querySelectorAll('.textures');
+      texturesBlock.forEach(function (e) {
+        e.onclick = function () {
+          let textureImg = e.querySelector('img');
+          let imgPath = textureImg.src;
+          changeModelTexture(imgPath)
+        }
+      })
+    }
+
+    function changeModelTexture(texturePath) {
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load(
+        texturePath,
+        function (texture) {
+            if (intersectedObject) {
+              intersectedObject.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.map = texture;
+                        child.material.needsUpdate = true;
+                    }
+                });
+            }
+        },
+        undefined, // onProgress callback not used
+        function (err) {
+            console.error('An error occurred while loading the texture:', err);
+        }
+    );
+}
 
     window.hidePopup = function () {
       const existingPopup = document.querySelector(".popup");
@@ -568,6 +631,7 @@
       isDragging = false;
       dragble = false;
       document.body.style.cursor = "auto";
+      removeTextureWrap() 
     };
 
     let objectGroup = null;
@@ -593,6 +657,7 @@
                 objectGroup.userData.username = "object1";
 
                 scene.add(objectGroup);
+                console.log('3d model added');
               }
             );
           }
@@ -649,25 +714,22 @@
     }
 
     function addLight() {
-      var keyLight = new THREE.DirectionalLight(
-        new THREE.Color("hsl(50, 70%, 30%)"),
-        1
-      );
-      keyLight.position.set(-10, 0, 70);
+    var ambientLight = new THREE.AmbientLight(0xffffff, 0.5); 
+    scene.add(ambientLight);
 
-      var fillLight = new THREE.DirectionalLight(
-        new THREE.Color("hsl(340, 100%, 100%)"),
-        0.75
-      );
-      fillLight.position.set(50, 0, 100);
+    var keyLight = new THREE.DirectionalLight(0xffffff, 1.5); 
+    keyLight.position.set(-10, 10, 10);
 
-      var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
-      backLight.position.set(50, 0, -50).normalize();
+    var fillLight = new THREE.DirectionalLight(0xffffff, 1.0); 
+    fillLight.position.set(10, 10, 10);
 
-      scene.add(keyLight);
-      scene.add(fillLight);
-      scene.add(backLight);
-    }
+    var backLight = new THREE.DirectionalLight(0xffffff, 1.0); 
+    backLight.position.set(0, 10, -10);
+
+    scene.add(keyLight);
+    scene.add(fillLight);
+    scene.add(backLight);
+}
 
     // Load background image and create a plane
     function addBackground(backImg) {
@@ -707,7 +769,7 @@
       renderer.render(scene, camera);
 
     }
-    
+
     addLight();
     animate();
   </script>
